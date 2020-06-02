@@ -18,7 +18,17 @@ router.get("/:id", (req, res) => {
       res.status(200).json(post[0]);
     })
     .catch(err => console.log(err));
+});
 
+router.post("/", (req, res) => {
+  const post = {
+    ...req.body,
+    created_at: Date.now(),
+    updated_at: Date.now(),
+  };
+
+  db.insert(post)
+    .then(post => res.status(201).json(post));
 });
 
 module.exports = router;
