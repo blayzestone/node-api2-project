@@ -20,6 +20,14 @@ router.get("/:id", (req, res) => {
     .catch(err => console.log(err));
 });
 
+router.get("/:id/comments", (req, res) => {
+  const id = req.params.id;
+
+  db.findPostComments(id)
+    .then(comments => res.status(200).json(comments))
+    .catch(err => console.log(err));
+});
+
 router.post("/", (req, res) => {
   const post = {
     ...req.body,
