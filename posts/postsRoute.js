@@ -31,4 +31,14 @@ router.post("/", (req, res) => {
     .then(post => res.status(201).json(post));
 });
 
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  db.remove(Number(id))
+    .then(post => {
+      console.log(post);
+      return res.status(201).json(post);
+    })
+    .catch(err => console.log(err));
+});
+
 module.exports = router;
