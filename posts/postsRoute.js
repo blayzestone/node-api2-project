@@ -51,4 +51,21 @@ router.delete("/:id", (req, res) => {
     .catch(err => console.log(err));
 });
 
+router.put("/:id", (req, res) => {
+  const id = req.params.id;
+
+  const edits = {
+    ...req.body,
+    updated_at: Date.now(),
+  }
+
+  db.update(Number(id), edits)
+    .then(() => {
+      db.findById(Number(id))
+        .then(post => res.status(201).json(post))
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+});
+
 module.exports = router;
