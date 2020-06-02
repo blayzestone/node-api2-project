@@ -41,10 +41,12 @@ router.post("/", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  db.remove(Number(id))
-    .then(post => {
-      console.log(post);
-      return res.status(201).json(post);
+  db.findById(Number(id))
+    .then(data => {
+      const post = {...data[0]};
+      return db.remove(Number(id))
+      .then(() => res.status(201).json(post))
+      .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
 });
